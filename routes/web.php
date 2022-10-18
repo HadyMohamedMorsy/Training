@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Testing;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\showprofile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/invoice', InvoicesController::class);
 Route::resource('/sections' , SectionsController::class);
+
+Route::get('{show}' , [showprofile::class , 'index']);
+    
 
 
 
