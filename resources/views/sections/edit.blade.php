@@ -16,7 +16,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">Create Section </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Form-Advanced</span>
+							<h4 class="content-title mb-0 my-auto">Edit Section </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Form-Advanced</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -50,21 +50,21 @@
 @section('content')
 				<!-- row -->
 				<div class="row">
-					<form class="col-lg-12 col-md-12" action={{ route('sections.store') }} method="POST">
+					<form class="col-lg-12 col-md-12" action={{ route('sections.update' , $sectionSignalEdit->id) }} method="POST">
 						@csrf
-						{{ method_field('POST') }}
+						{{ method_field('PUT') }}
 						<div class="card">
 							<div class="card-body">
 								<div class="mb-4">
                                     <div class="form-group">
                                         <label> Name Of Section</label>
-                                        <input class="form-control" type="NameSection" placeholder="Name of Section"  name="section_name" >
+                                        <input class="form-control" type="NameSection" placeholder="Name of Section"  name="section_name" value="{{ $sectionSignalEdit->section_name }}">
                                     </div>
 								</div>
 								<div class="mb-4">
                                     <div class="form-group">
                                         <label> Description </label>
-                                        <textarea class="form-control" type="NameSection" placeholder="Description Of Your Section"  name="Description" ></textarea>
+                                        <textarea class="form-control" type="NameSection" placeholder="Description Of Your Section"  name="Description">{{ $sectionSignalEdit->Description }}</textarea>
                                     </div>
 								</div>
 								<button class="btn ripple btn-primary bl-tl-0 bl-bl-0" type="submit">Submit</button>

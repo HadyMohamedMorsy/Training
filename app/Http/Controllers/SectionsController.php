@@ -16,7 +16,8 @@ class SectionsController extends Controller
     public function index()
     {
         if(Auth::check()){
-            return view('sections.sections');
+            $sections = sections::all();
+            return view('sections.sections', compact('sections'));
         }
     }
 
@@ -40,7 +41,20 @@ class SectionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validateData= $request->validate([
+            'section_name' => 'required|unique:sections|max:255',
+            'Description' => 'required',
+        ]);
+
+        sections::create([
+            'section_name' => $request->section_name,
+            'Description' => $request->Description,
+            'Created_by' => (Auth::user()->name),
+        ]);
+
+        return redirect('/sections')->with("success","This Product Is Added In Our Data Base");
+
     }
 
     /**
@@ -49,9 +63,11 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function show(sections $sections)
+    public function show($id)
     {
-        //
+        $sectionSignalShow = sections::find($id);
+
+        return view('sections.show' , compact('sectionSignalShow'));
     }
 
     /**
@@ -60,9 +76,11 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function edit(sections $sections)
+    public function edit($id)
     {
-        //
+        $sectionSignalEdit = sections::find($id);
+
+        return view('sections.edit' , compact('sectionSignalEdit'));
     }
 
     /**
@@ -72,9 +90,23 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, sections $sections)
+    public function update(Request $request , $id)
     {
-        //
+        
+        $validateData= $request->validate([
+            'section_name' => 'required|unique:sections,section_name,'.$id,
+            'Description' => 'required',
+        ]);
+
+       $finderSectionToUpdated =  sections::find($id);
+
+       $finderSectionToUpdated->update([
+            'section_name' => $request->section_name,
+            'Description' => $request->Description,
+            'Created_by' => (Auth::user()->name),
+       ]);
+
+        return redirect('/sections')->with("updated","This Product Is Updated In Our Data Base");
     }
 
     /**
@@ -83,8 +115,10 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(sections $sections)
+    public function destroy($id)
     {
-        //
+        $finderSectionToDelete = sections::find($id);
+        $finderSectionToDelete->delete();
+        return redirect('/sections')->with("Deleted","This Product Is Deleted In Our Data Base");
     }
 }

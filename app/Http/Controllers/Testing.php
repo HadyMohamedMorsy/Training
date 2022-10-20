@@ -12,9 +12,11 @@ class Testing extends Controller
 
         if (Auth::check()) {
             // The user is logged in...
-            return view('Invoice.index');
+            return view('Home.index');
+        }else{
+            return view('auth.login');
         }
 
-        return view('auth.login');
+        
     }
 }
