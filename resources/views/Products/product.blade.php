@@ -17,7 +17,7 @@
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 						<div class="col-sm-6 col-md-3">
-							<a href="{{ route('sections.create') }}" class="btn btn-primary btn-block">Create Section</a>
+							<a href="{{ route('products.create') }}" class="btn btn-primary btn-block">Create Product</a>
 						</div>
 				</div>
 				<!-- breadcrumb -->
@@ -58,24 +58,26 @@
 									<table class="table text-md-nowrap" id="example1">
 										<thead>
 											<tr>
-												<th class="wd-15p border-bottom-0">Section_name</th>
+												<th class="wd-15p border-bottom-0">product_name</th>
 												<th class="wd-15p border-bottom-0">Description</th>
+												<th class="wd-15p border-bottom-0">Section_name</th>
 												<th class="wd-20p border-bottom-0">Created_by</th>
 												<th class="wd-10p border-bottom-0">Updated_at</th>
 												<th class="wd-10p border-bottom-0">Actions</th>
 											</tr>
 										</thead>
 										<tbody>
-											@foreach ($sections as $section )
+											@foreach ($products as $product )
 											<tr>
-												<td>{{ $section->section_name }}</td>
-												<td>{{ $section->Description }}</td>
-												<td>{{ $section->Created_by }}</td>
-												<td>{{ $section->updated_at }}</td>
+												<td>{{ $product->product_name }}</td>
+												<td>{{ $product->Description }}</td>
+                                                <td>{{ $product->section->section_name }} </td>
+												<td>{{ $product->created_at }}</td>
+												<td>{{ $product->updated_at }}</td>
 												<td>
-													<a href="{{ route('sections.show' , $section->id) }}"  class="btn btn-primary"><i class="far fa-eye"></i></a>
-													<a href="{{ route('sections.edit' , $section->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-													<form action="{{ route('sections.destroy' , $section->id) }}" method="POST" class="Delete-form">
+													<a href="{{ route('products.show' , $product->id) }}"  class="btn btn-primary"><i class="far fa-eye"></i></a>
+													<a href="{{ route('products.edit' , $product->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+													<form action="{{ route('products.destroy' , $product->id) }}" method="POST" class="Delete-form">
 														@csrf
 														{{ method_field('DELETE') }}
             											<button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -120,3 +122,4 @@
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 @endsection
+

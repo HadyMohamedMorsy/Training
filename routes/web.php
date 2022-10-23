@@ -6,6 +6,7 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\AllUsers;
 use App\Http\Controllers\showprofile;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/invoice', InvoicesController::class);
 Route::resource('/sections' , SectionsController::class);
 Route::resource('/users' , AllUsers::class);
+Route::resource('/products' , ProductController::class);
+
 
 Route::get('{show}' , [showprofile::class , 'index']);
     

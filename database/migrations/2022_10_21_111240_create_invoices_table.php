@@ -15,19 +15,23 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             
-            $table->increments('id');
+            $table->id();
             $table->string('invoice_number'); 
             $table->date('invoice_Date'); 
             $table->date('due_date'); 
-            $table->string('product'); 
-            $table->string('section'); 
-            $table->string('discount'); 
-            $table->string('rate_value'); 
+            $table->unsignedBigInteger('id_sec');
+            $table->foreign('id_sec')->references('id')->on('sections')->onDelete('cascade');
+            $table->string('product');
+            $table->decimal('discount');
+            $table->decimal('amount_Collection')->nullable(); 
+            $table->decimal('amount_Commission'); 
             $table->decimal('value_vat' , 8 , 2); 
             $table->decimal('total', 8 , 2); 
+            $table->string('rate_value'); 
             $table->string('status'); 
             $table->integer('value_status');
             $table->text('note')->nullable();
+            $table->date('payment_Date')->nullable();
             $table->string('user');
             $table->softDeletes();
             $table->timestamps();

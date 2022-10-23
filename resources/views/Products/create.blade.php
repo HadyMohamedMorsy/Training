@@ -7,16 +7,16 @@
 <!---Internal Fancy uploader css-->
 <link href="{{URL::asset('assets/plugins/fancyuploder/fancy_fileupload.css')}}" rel="stylesheet" />
 <!--Internal Sumoselect css-->
-<link rel="stylesheet" href="{{URL::asset('assets/plugins/sumoselect/sumoselect-rtl.css')}}">
+<link rel="stylesheet" href="{{URL::asset('assets/plugins/sumoselect/sumoselect.css')}}">
 <!--Internal  TelephoneInput css-->
-<link rel="stylesheet" href="{{URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css')}}">
+<link rel="stylesheet" href="{{URL::asset('assets/plugins/telephoneinput/telephoneinput.css')}}">
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">Edit Section </h4>
+							<h4 class="content-title mb-0 my-auto">Create Product </h4>
 						</div>
 					</div>
 				</div>
@@ -25,21 +25,32 @@
 @section('content')
 				<!-- row -->
 				<div class="row">
-					<form class="col-lg-12 col-md-12" action={{ route('sections.update' , $sectionSignalEdit->id) }} method="POST">
+					<form class="col-lg-12 col-md-12" action={{ route('products.store') }} method="POST">
 						@csrf
-						{{ method_field('PUT') }}
+						{{ method_field('POST') }}
 						<div class="card">
 							<div class="card-body">
 								<div class="mb-4">
                                     <div class="form-group">
-                                        <label> Name Of Section</label>
-                                        <input class="form-control" type="NameSection" placeholder="Name of Section"  name="section_name" value="{{ $sectionSignalEdit->section_name }}">
+                                        <label> Name Of product</label>
+                                        <input class="form-control" type="text" placeholder="Name of Section"  name="product_name" >
                                     </div>
+								</div>
+								<div class="mb-4">
+								    <div class="form-group">
+								        <label> Select Of Section</label>
+								        <select class="SlectBox form-control SumoUnder" tabindex="-1" name="section_name">
+											@foreach ($sections as $section)
+												<option value ="" selected > Select Your Section </option>
+												<option value="{{ $section->id }}">{{ $section->section_name }}</option>
+											@endforeach
+										</select>
+								    </div>
 								</div>
 								<div class="mb-4">
                                     <div class="form-group">
                                         <label> Description </label>
-                                        <textarea class="form-control" type="NameSection" placeholder="Description Of Your Section"  name="Description">{{ $sectionSignalEdit->Description }}</textarea>
+                                        <textarea class="form-control" type="NameSection" placeholder="Description Of Your Section"  name="Description" ></textarea>
                                     </div>
 								</div>
 								<button class="btn ripple btn-primary bl-tl-0 bl-bl-0" type="submit">Submit</button>

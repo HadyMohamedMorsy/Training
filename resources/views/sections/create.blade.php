@@ -16,32 +16,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">Create Section </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Form-Advanced</span>
-						</div>
-					</div>
-					<div class="d-flex my-xl-auto right-content">
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-info btn-icon ml-2"><i class="mdi mdi-filter-variant"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger btn-icon ml-2"><i class="mdi mdi-star"></i></button>
-						</div>
-						<div class="pr-1 mb-3 mb-xl-0">
-							<button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button>
-						</div>
-						<div class="mb-3 mb-xl-0">
-							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
-							</div>
+							<h4 class="content-title mb-0 my-auto">Create Section </h4>
 						</div>
 					</div>
 				</div>
@@ -58,13 +33,13 @@
 								<div class="mb-4">
                                     <div class="form-group">
                                         <label> Name Of Section</label>
-                                        <input class="form-control" type="NameSection" placeholder="Name of Section"  name="section_name" >
+                                        <input class="form-control" type="text" placeholder="Name of Section"  name="section_name" >
                                     </div>
 								</div>
 								<div class="mb-4">
                                     <div class="form-group">
                                         <label> Description </label>
-                                        <textarea class="form-control" type="NameSection" placeholder="Description Of Your Section"  name="Description" ></textarea>
+                                        <textarea class="form-control" placeholder="Description Of Your Section"  name="Description" ></textarea>
                                     </div>
 								</div>
 								<button class="btn ripple btn-primary bl-tl-0 bl-bl-0" type="submit">Submit</button>
