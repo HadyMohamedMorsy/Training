@@ -25,7 +25,9 @@
 @section('content')
 
 				<!-- row -->
-				<div class="row">
+				<form class="row" method="POST" action="{{ route('invoice.store') }}" enctype="multipart/form-data">
+					@csrf
+					{{ method_field('POST') }}
 					<!--div-->
 					<div class="col-md-12 col-xl-12 col-xs-12 col-sm-12">
 						<div class="card">
@@ -37,149 +39,121 @@
 								<div class="row row-sm mg-b-20">
 									<div class="col-lg-4">
 										<div class="form-group">
-										    <label> Invoice</label>
-										    <input class="form-control" type="text" placeholder="Name of Section"  name="product_name" >
+											<label> invoice_number </label>
+											<input class="form-control" type="number" placeholder="Name of Section"  name="invoice_number" >
 										</div>	
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group">
 											<label> Date Invoice</label>
-											<input class="form-control" type="date" placeholder="Name of Section"  name="product_name" >
+											<input class="form-control" type="date" placeholder="Name of Section"  name="invoice_Date" >
 										</div>	
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group">
 											<label> Date entitlement</label>
-											<input class="form-control" type="date" placeholder="Name of Section"  name="product_name" >
+											<input class="form-control" type="date" placeholder="Name of Section"  name="due_date" >
 										</div>	
 									</div>
 									<div class="col-lg-4">
 										<p class="mg-b-10">Select Section</p>
-										<select class="form-control select2-no-search">
+										<select class="form-control selection" value="3" name="id_sec" onchange="changing(this)">
 											<option label="Choose one">
 											</option>
-											<option value="Firefox">
-												Firefox
+											@foreach ($sections as $section)
+											<option value="{{ $section->id }}">
+												{{ $section->section_name }}
 											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
+											@endforeach
 										</select>
 									</div>
 									<div class="col-lg-4">
 										<p class="mg-b-10">Select Product</p>
-										<select class="form-control select2-no-search">
+										<select class="form-control select2-no-search products" name="product">
 											<option label="Choose one">
-											</option>
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
 											</option>
 										</select>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group">
-											<label> Amount of entitlement </label>
-											<input class="form-control" type="text" placeholder="Name of Section"  name="product_name" >
+											<label> Amount_Collection </label>
+											<input class="form-control" type="text" placeholder="Name of Section"  name="amount_Collection" >
 										</div>	
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group">
-											<label> cost </label>
-											<input class="form-control" type="text" placeholder="Name of Section"  name="product_name" >
+											<label> Amount_Commission </label>
+											<input class="form-control" type="text" placeholder="Name of Section"  name="amount_Commission" id="amount_Commission">
 										</div>	
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group">
-											<label> Discount </label>
-											<input class="form-control" type="text" placeholder="Name of Section"  name="product_name" >
+											<label> value_vat </label>
+											<input class="form-control" type="text" placeholder="Name of Section"  name="value_vat" id="value_vat">
 										</div>	
 									</div>
 
 									<div class="col-lg-4">
-									<p class="mg-b-10">Select Tax</p>
-										<select class="form-control select2-no-search">
+									<p class="mg-b-10">rate_value</p>
+										<select class="form-control select2-no-search" onchange="calcTaxAndTotal(this)" name ="rate_value">
 											<option label="Choose one">
 											</option>
-											<option value="Firefox">
-												Firefox
+											<option  value = 5>
+												5%
 											</option>
-											<option value="Chrome">
-												Chrome
+											<option  value= 10>
+												10%
 											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
+											<option  value= 15>
+												15%
 											</option>
 										</select>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label> Value Added Tax  </label>
-											<input class="form-control" type="text" placeholder="Name of Section"  name="product_name" disabled>
+											<label> Value Added rate_value  </label>
+											<input class="form-control" type="number" placeholder="Name of Section"  disabled  id="rate_value">
+											<input class="form-control " type="hidden" placeholder="Name of Section" name ="value_vat" id="final_rate_value">
 										</div>	
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
-											<label> Total </label>
-											<input class="form-control" type="text" placeholder="Name of Section"  name="product_name" disabled>
+											<label> ALL </label>
+											<input class="form-control" type="number" placeholder="total" disabled id="total">
+											<input class="form-control" type="hidden" placeholder="Name of Section" name ="total" id="final_total">
 										</div>	
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
 											<label> Note </label>
-											<textarea class="form-control" type="NameSection" placeholder="Description Of Your Section"  name="Description" ></textarea>
+											<textarea class="form-control"  placeholder="Description Of Your Section"  name="note" ></textarea>
 										</div>
 									</div>
 								</div>
-												<!-- row -->
-				<div class="row">
-					<div class="col-lg-12 col-md-12">
-						<div class="card">
-							<div class="card-body">
-								<div>
-									<h6 class="card-title mb-1">File Upload</h6>
-									<p class="text-muted card-sub-title">u must upload format your JPG/PNG/PDF</p>
-								</div>
-								<div class="row mb-4">
-									<div class="col-lg-12">
-										<input type="file" class="dropify" data-height="200" />
+							<!-- row -->
+								<div class="row">
+								<div class="col-lg-12 col-md-12">
+									<div class="card">
+										<div class="card-body">
+											<div>
+												<h6 class="card-title mb-1">File Upload</h6>
+												<p class="text-muted card-sub-title">u must upload format your JPG/PNG/PDF</p>
+											</div>
+											<div class="row mb-4">
+												<div class="col-lg-12">
+													<input type="file" class="dropify" data-height="200" name="pic"/>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
+								<button class="btn btn-primary" type="submit"> Submit</button>
+							</div>
+						<!-- row closed -->
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- row closed -->
-							</div>
-						</div>
-					</div>
-				</div>
+				</form>
 				<!-- row closed -->
 			</div>
 			<!-- Container closed -->
@@ -208,5 +182,6 @@
 
 <!--Internal Fileuploads js-->
 <script src="{{URL::asset('assets/plugins/fileuploads/js/fileupload.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/fileuploads/js/file-upload.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/fileuploads/js/file-upload.js')}}"></script> 
+<script src="{{URL::asset('assets/js/changeselect.js')}}"></script>
 @endsection

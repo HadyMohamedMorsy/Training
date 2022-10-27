@@ -40,8 +40,8 @@
 								    <div class="form-group">
 								        <label> Select Of Section</label>
 								        <select class="SlectBox form-control SumoUnder" tabindex="-1" name="section_name">
+											<option value ="" selected > Select Your Section </option>
 											@foreach ($sections as $section)
-												<option value ="" selected > Select Your Section </option>
 												<option value="{{ $section->id }}">{{ $section->section_name }}</option>
 											@endforeach
 										</select>

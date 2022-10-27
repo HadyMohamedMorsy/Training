@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Invoices extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['invoice_number', 'invoice_Date' ,'due_date' , 'id_sec' , 'product' , 'amount_Collection' , 'amount_Commission' , 'value_vat' , 'total' , 'rate_value', 'status' , 'value_status' , 'note' , 'payment_Date' , 'user'];   
+
+    public function section(){
+
+       return $this->belongsTo(sections::class);
+    }
+
+
 }

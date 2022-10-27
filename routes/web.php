@@ -31,12 +31,11 @@ Route::resource('/invoice', InvoicesController::class);
 Route::resource('/sections' , SectionsController::class);
 Route::resource('/users' , AllUsers::class);
 Route::resource('/products' , ProductController::class);
-
-
+Route::get('testing/{id}', [ProductController::class, 'getIdSections']);
 Route::get('{show}' , [showprofile::class , 'index']);
     
 
 
 
-
+            
 

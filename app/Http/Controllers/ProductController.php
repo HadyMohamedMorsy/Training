@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'product_name' => 'required|unique:products|max:255',
+            'product_name' => 'required|max:255',
             'Description' => 'required',
             'section_name' => 'required',
         ]);
@@ -93,7 +93,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $validateData= $request->validate([
-            'product_name' => 'required|unique:products,product_name,'.$id,
+            'product_name' => 'required',
             'section_name' => 'required',
             'Description' => 'required',
         ]);
@@ -120,5 +120,10 @@ class ProductController extends Controller
         $finderProductToDelete = product::find($id);
         $finderProductToDelete->delete();
         return redirect('/products')->with("Deleted","This Product Is Deleted In Our Data Base");
+    }
+
+    public function getIdSections($id){
+        $products = product::where('section_id' , $id)->get(['product_name' , 'id']);
+        return json_encode($products , true);
     }
 }
