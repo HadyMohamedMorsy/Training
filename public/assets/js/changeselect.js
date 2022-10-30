@@ -1,10 +1,10 @@
-let win = window.location.href;
-let getHref = win.split("invoice");
+let UrlSystem = window.location.href;
+let getHref = UrlSystem.split("invoice");
 
 function changing(self) {
     let getId = self.value;
     if (getId) {
-        fetch(getHref[0] + "testing/" + getId, {
+        fetch(getHref[0] + "getProducts/" + getId, {
             method: "GET", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",

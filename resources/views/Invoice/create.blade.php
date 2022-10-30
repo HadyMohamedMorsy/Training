@@ -57,13 +57,13 @@
 									</div>
 									<div class="col-lg-4">
 										<p class="mg-b-10">Select Section</p>
-										<select class="form-control selection" value="3" name="id_sec" onchange="changing(this)">
+										<select class="form-control selection" name="section_id" onchange="changing(this)">
 											<option label="Choose one">
 											</option>
 											@foreach ($sections as $section)
-											<option value="{{ $section->id }}">
-												{{ $section->section_name }}
-											</option>
+												<option value="{{ $section->id }}">
+													{{ $section->section_name }}
+												</option>
 											@endforeach
 										</select>
 									</div>
@@ -130,7 +130,7 @@
 										</div>
 									</div>
 								</div>
-							<!-- row -->
+							<!-- row -->	
 								<div class="row">
 								<div class="col-lg-12 col-md-12">
 									<div class="card">
@@ -141,7 +141,7 @@
 											</div>
 											<div class="row mb-4">
 												<div class="col-lg-12">
-													<input type="file" class="dropify" data-height="200" name="pic"/>
+													<input type="file" class="dropify" data-height="200" name="photo"/>
 												</div>
 											</div>
 										</div>
@@ -154,6 +154,16 @@
 						</div>
 					</div>
 				</form>
+
+				@if ($errors->any())
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
 				<!-- row closed -->
 			</div>
 			<!-- Container closed -->

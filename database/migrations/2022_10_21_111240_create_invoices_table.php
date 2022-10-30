@@ -19,10 +19,9 @@ return new class extends Migration
             $table->string('invoice_number'); 
             $table->date('invoice_Date'); 
             $table->date('due_date'); 
-            $table->unsignedBigInteger('id_sec');
-            $table->foreign('id_sec')->references('id')->on('sections')->onDelete('cascade');
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->string('product');
-            $table->decimal('discount');
             $table->decimal('amount_Collection')->nullable(); 
             $table->decimal('amount_Commission'); 
             $table->decimal('value_vat' , 8 , 2); 

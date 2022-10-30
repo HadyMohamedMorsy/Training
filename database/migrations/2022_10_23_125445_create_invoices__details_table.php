@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('invoice_number');
             $table->foreign('id_invoice')->references('id')->on('invoices')->onDelete('cascade');
             $table->string('product'); 
-            $table->unsignedBigInteger('id_sec');
-            $table->foreign('id_sec')->references('id')->on('sections')->onDelete('cascade');
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->string('status'); 
             $table->integer('value_status');
             $table->text('note')->nullable();

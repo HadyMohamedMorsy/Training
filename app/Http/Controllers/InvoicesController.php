@@ -9,8 +9,9 @@ use App\Models\product;
 use App\Models\sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp\Psr7\UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Facades\DB;
+
 
 class InvoicesController extends Controller
 {
@@ -21,9 +22,10 @@ class InvoicesController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            return view('Invoice.invoice');
-        }
+    
+        $invoices = Invoices::all();
+        return view('Invoice.invoice' , compact('invoices'));
+        
         
     }
 
@@ -47,61 +49,59 @@ class InvoicesController extends Controller
      */
     public function store(Request $request)
     {
+    
+        if($request->file()){
+
+                Invoices::create([
+                    'invoice_number' => $request->invoice_number,
+                    'invoice_Date' => $request->invoice_Date,
+                    'due_date' => $request->due_date,
+                    'section_id' => $request->section_id,
+                    'product' => $request->product,
+                    'amount_Collection' => $request->amount_Collection,
+                    'amount_Commission' => $request->amount_Commission,
+                    'rate_value' => $request->rate_value,
+                    'value_vat' => $request->value_vat,
+                    'total' => $request->total,
+                    'status' => "Not Payment Yet",
+                    'value_status' => "2",
+                    'note' => $request->note,
+                    'user' => Auth::user()->name,
+                ]);
         
-
-            
-              dd($request->file());
-
-            // Invoices::create([
-            //     'invoice_number' => $request->invoice_number,
-            //     'invoice_Date' => $request->invoice_Date,
-            //     'due_date' => $request->due_date,
-            //     'id_sec' => $request->id_sec,
-            //     'product' => $request->product,
-            //     'amount_Collection' => $request->amount_Collection,
-            //     'amount_Commission' => $request->amount_Commission,
-            //     'rate_value' => $request->rate_value,
-            //     'value_vat' => $request->value_vat,
-            //     'Total' => $request->total,
-            //     'status' => "Not Payment Yet",
-            //     'value_status' => "2",
-            //     'note' => $request->note,
-            //     'user' => Auth::user()->name,
-            // ]);
-
-            // $id_invoice = Invoices::latest()->first()->id;
-
-            // invoices_Details::create([
-            //     'id_invoice' => $id_invoice,
-            //     'invoice_number' => $request->invoice_number,
-            //     'product' => $request->product,
-            //     'id_sec' => $request->id_sec, 
-            //     'status' => "Not Payment Yet",
-            //     'value_status' => "2" ,
-            //     'note' => $request->note,
-            //     'user' => Auth::user()->name
-            // ]);
-
-            // $request->validate([
-            //     'pic' => 'required|mimes:pdf|max:10000',
-            // ]);
-
-            // $name_file = $request->file('pic')->getClientOriginalName();
-
-            // invoice_attachment::create([
-            //     'file_name' =>$name_file ,
-            //     'invoice_number' =>  $request->invoice_number,
-            //     'Created_by' => Auth::user()->name,
-            //     'invoice_id' => $id_invoice
-            // ]);
-
-            // $request->file('pic')->storeAs($request->invoice_number , $name_file , 'Pdf');
-
-
-            // return redirect('/invoice')->with("success","This Invoice Is Added In Our Data Base");
-            
+                $id_invoice = Invoices::latest()->first()->id;
+                
+                invoices_Details::create([
+                    'id_invoice' => $id_invoice,
+                    'invoice_number' => $request->invoice_number,
+                    'product' => $request->product,
+                    'section_id' => $request->section_id, 
+                    'status' => "Not Payment Yet",
+                    'value_status' => "2" ,
+                    'note' => $request->note,
+                    'user' => Auth::user()->name
+                ]);
+                
         
+                
+                $name_file = $request->file('photo')->getClientOriginalName();
+                    
+                invoice_attachment::create([
+                    'file_name' =>$name_file,
+                    'invoice_number' =>  $request->invoice_number,
+                    'Created_by' => Auth::user()->name,
+                    'invoice_id' => $id_invoice,
+                ]);
+                
+                $request->file('photo')->storeAs($request->invoice_number , $name_file , 'Pdf');
+                
+                return redirect('/invoice')->with("success","This Invoice Is Added In Our Data Base");
 
+            }else{
+
+                return redirect('/invoice')->with("File","Must Upload File");
+
+            }
     }
 
     /**
@@ -110,9 +110,16 @@ class InvoicesController extends Controller
      * @param  \App\Models\Invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoices $invoices)
+    public function show($id)
     {
-        //
+        $invoices = Invoices::find($id);
+        
+        $details = invoices_Details::find($id);
+
+        $attachment = invoice_attachment::find($id);
+
+
+        return view('Invoice.allInvoices' , compact('invoices' , 'details' , 'attachment'));
     }
 
     /**
@@ -148,5 +155,7 @@ class InvoicesController extends Controller
     {
         //
     }
+
+
 
 }
