@@ -14,9 +14,7 @@ class AllUsers extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            return view('users.users');
-        }
+        return view('users.users');
     }
 
     /**

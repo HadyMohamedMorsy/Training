@@ -81,12 +81,12 @@
                                                                 <td>{{ $invoices->total }}</td>
                                                                 <th scope="row" class="font-weight-bold">status</th >
                                                                 <td>
-                                                                         @if ( $details->value_status  == 1)
-                                                                            <span class="text-success"> {{ $details->status }}</span>
-                                                                        @elseif ($details->value_status == 2)
-                                                                            <span class="text-danger"> {{ $details->status }}</span>
+                                                                         @if ( $invoices->value_status  == 1)
+                                                                            <span class="text-success"> {{ $invoices->status }}</span>
+                                                                        @elseif ($invoices->value_status == 2)
+                                                                            <span class="text-danger"> {{ $invoices->status }}</span>
                                                                         @else
-                                                                            <span class="text-warning"> {{ $details->status }}</span>
+                                                                            <span class="text-warning"> {{ $invoices->status }}</span>
                                                                         @endif
                                                                 </td>
                                                                 <th scope="row" class="font-weight-bold">note</th >
@@ -104,18 +104,53 @@
                                                     </table>
 													</div>
 													<div class="tab-pane" id="tab2">
-														
-                                                        <table class="table text-md-nowrap" id="example1">
+                                                    <table class="table text-md-nowrap" id="example1">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="wd-15p border-bottom-0">id</th>
+                                                                <th class="wd-15p border-bottom-0">invoice_number</th>
+                                                                <th class="wd-20p border-bottom-0">product</th>
+                                                                <th class="wd-15p border-bottom-0">section</th>
+                                                                <th class="wd-10p border-bottom-0">status</th>
+                                                                <th class="wd-25p border-bottom-0">note</th>
+                                                                <th class="wd-25p border-bottom-0">user</th>
+                                                                <th class="wd-25p border-bottom-0">created_at</th>
+                                                                <th class="wd-25p border-bottom-0">updated_at</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="wd-15p border-bottom-0">id</td>
+                                                                <td class="wd-15p border-bottom-0">{{ $details->invoice->invoice_number }}</td>
+                                                                <td class="wd-20p border-bottom-0">{{ $details->invoice->product }}</td>
+                                                                <td class="wd-15p border-bottom-0">{{ $details->section->section_name }}</td>
+                                                                <td class="wd-10p border-bottom-0">
+                                                                    @if ( $details->invoice->value_status  == 1)
+                                                                        <span class="text-success"> {{ $details->invoice->status }}</span>
+                                                                    @elseif ($details->invoice->value_status == 2)
+                                                                        <span class="text-danger"> {{ $details->invoice->status }}</span>
+                                                                    @else
+                                                                        <span class="text-warning"> {{ $details->invoice->status }}</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td class="wd-25p border-bottom-0">{{ $details->invoice->note }}</td>
+                                                                <td class="wd-25p border-bottom-0">{{ $details->invoice->user }}</td>
+                                                                <td class="wd-25p border-bottom-0">{{ $details->created_at }}</td>
+                                                                <td class="wd-25p border-bottom-0">{{ $details->updated_at }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+													</div>
+													<div class="tab-pane" id="tab3">
+                                                    <table class="table table-striped mg-b-0 text-md-nowrap">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="wd-15p border-bottom-0">id</th>
-                                                                    <th class="wd-15p border-bottom-0">invoice_number</th>
-                                                                    <th class="wd-20p border-bottom-0">product</th>
-                                                                    <th class="wd-15p border-bottom-0">section</th>
-                                                                    <th class="wd-10p border-bottom-0">status</th>
-                                                                    <th class="wd-25p border-bottom-0">note</th>
-                                                                    <th class="wd-25p border-bottom-0">user</th>
-                                                                    <th class="wd-25p border-bottom-0">created_at</th>
+                                                                    <th class="wd-15p border-bottom-0">file_name</th>
+                                                                    <th class="wd-20p border-bottom-0">invoice_number</th>
+                                                                    <th class="wd-15p border-bottom-0">Created_by</th>
+                                                                    <th class="wd-10p border-bottom-0">created_at</th>
                                                                     <th class="wd-25p border-bottom-0">updated_at</th>
                                                                 </tr>
                                                             </thead>
@@ -123,29 +158,14 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="wd-15p border-bottom-0">id</td>
-                                                                    <td class="wd-15p border-bottom-0">{{ $details->invoice_number }}</td>
-                                                                    <td class="wd-20p border-bottom-0">{{ $details->product }}</td>
-                                                                    <td class="wd-15p border-bottom-0">{{ $details->section->section_name }}</td>
-                                                                    <td class="wd-10p border-bottom-0">
-                                                                        @if ( $details->value_status  == 1)
-                                                                            <span class="text-success"> {{ $details->status }}</span>
-                                                                        @elseif ($details->value_status == 2)
-                                                                            <span class="text-danger"> {{ $details->status }}</span>
-                                                                        @else
-                                                                            <span class="text-warning"> {{ $details->status }}</span>
-                                                                        @endif
-                                                                    </td>
-                                                                    <td class="wd-25p border-bottom-0">{{ $details->note }}</td>
-                                                                    <td class="wd-25p border-bottom-0">{{ $details->user }}</td>
-                                                                    <td class="wd-25p border-bottom-0">{{ $details->created_at }}</td>
-                                                                    <td class="wd-25p border-bottom-0">{{ $details->updated_at }}</td>
+                                                                    <td class="wd-15p border-bottom-0">{{ $attachment->file_name }}</td>
+                                                                    <td class="wd-20p border-bottom-0">{{ $attachment->invoice->invoice_number }}</td>
+                                                                    <td class="wd-15p border-bottom-0">{{ $attachment->invoice->user }}</td>
+                                                                    <td class="wd-25p border-bottom-0">{{ $attachment->created_at }}</td>
+                                                                    <td class="wd-25p border-bottom-0">{{ $attachment->updated_at }}</td>
                                                                 </tr>
                                                             </tbody>
-                                                        </table>
-													</div>
-													<div class="tab-pane" id="tab3">
-														<p>praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,</p>
-														<p class="mb-0">similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+                                                    </table>
 													</div>
 												</div>
 											</div>

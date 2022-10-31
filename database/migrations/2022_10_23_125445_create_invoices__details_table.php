@@ -15,16 +15,10 @@ return new class extends Migration
     {
         Schema::create('invoices__details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_invoice');
-            $table->string('invoice_number');
-            $table->foreign('id_invoice')->references('id')->on('invoices')->onDelete('cascade');
-            $table->string('product'); 
+            $table->unsignedBigInteger('invoice_id');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
-            $table->string('status'); 
-            $table->integer('value_status');
-            $table->text('note')->nullable();
-            $table->string('user');
             $table->timestamps();
         });
     }

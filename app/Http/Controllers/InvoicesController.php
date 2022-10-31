@@ -72,14 +72,8 @@ class InvoicesController extends Controller
                 $id_invoice = Invoices::latest()->first()->id;
                 
                 invoices_Details::create([
-                    'id_invoice' => $id_invoice,
-                    'invoice_number' => $request->invoice_number,
-                    'product' => $request->product,
+                    'invoice_id' => $id_invoice,
                     'section_id' => $request->section_id, 
-                    'status' => "Not Payment Yet",
-                    'value_status' => "2" ,
-                    'note' => $request->note,
-                    'user' => Auth::user()->name
                 ]);
                 
         
@@ -88,8 +82,6 @@ class InvoicesController extends Controller
                     
                 invoice_attachment::create([
                     'file_name' =>$name_file,
-                    'invoice_number' =>  $request->invoice_number,
-                    'Created_by' => Auth::user()->name,
                     'invoice_id' => $id_invoice,
                 ]);
                 
@@ -114,9 +106,9 @@ class InvoicesController extends Controller
     {
         $invoices = Invoices::find($id);
         
-        $details = invoices_Details::find($id);
-
-        $attachment = invoice_attachment::find($id);
+        $attachment = invoice_attachment::where('invoice_id', $id)->first();
+        
+        $details = invoices_Details::where('invoice_id', $id)->first();
 
 
         return view('Invoice.allInvoices' , compact('invoices' , 'details' , 'attachment'));

@@ -22,20 +22,22 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/' , [Testing::class , 'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/invoice', InvoicesController::class);
-Route::resource('/sections' , SectionsController::class);
-Route::resource('/users' , AllUsers::class);
-Route::resource('/products' , ProductController::class);
-Route::get('getProducts/{id}', [ProductController::class, 'getIdSections']);
-Route::get('{show}' , [showprofile::class , 'index']);
-    
+Route::get('/' , [Testing::class , 'index']);
 
+Route::group(['middleware' => 'auth'] , function(){
+    // Routes 
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/invoice', InvoicesController::class);
+    Route::resource('/sections' , SectionsController::class);
+    Route::resource('/users' , AllUsers::class);
+    Route::resource('/products' , ProductController::class);
+    Route::get('getProducts/{id}', [ProductController::class, 'getIdSections']);
 
+    // show theme files to get what i want
+    Route::get('{show}' , [showprofile::class , 'index']);
 
-            
+});
 

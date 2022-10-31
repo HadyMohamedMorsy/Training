@@ -52,7 +52,7 @@
 														@enderror
 													</div>
 													<div class="row mb-3">
-														<div class="col-md-6 offset-md-4">
+														<div class="col-md-6">
 															<div class="form-check">
 																<input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -65,19 +65,19 @@
 													<input type="submit" class="btn btn-primary" value="Login">
 															
 												</form>
-													{{-- <div class="row row-xs">
+													<div class="row row-xs">
 														<div class="col-sm-6">
 															<button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button>
 														</div>
 														<div class="col-sm-6 mg-t-10 mg-sm-t-0">
 															<button class="btn btn-info btn-block"><i class="fab fa-twitter"></i> Signup with Twitter</button>
 														</div>
-													</div> --}}
+													</div>
 												
-												{{-- <div class="main-signin-footer mt-5">
+												<div class="main-signin-footer mt-5">
 													<p><a href="">Forgot password?</a></p>
-													<p>Don't have an account? <a href="{{ url('/' . $page='signup') }}">Create an Account</a></p>
-												</div> --}}
+													<p>Don't have an account? <a href="{{ url('/register') }}">Create an Account</a></p>
+												</div>
 											</div>
 										</div>
 									</div>

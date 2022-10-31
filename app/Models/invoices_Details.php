@@ -9,13 +9,19 @@ class invoices_Details extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_invoice', 'invoice_number' , 'product' , 'section_id' , 'status' , 'value_status' , 'note' , 'user'];
+    protected $fillable = ['invoice_id', 'section_id'];
 
 
     public function section(){
 
-       return $this->belongsTo(sections::class);
+       return $this->belongsTo(sections::class , 'section_id');
     }
+
+    public function invoice(){
+
+       return $this->belongsTo(Invoices::class , 'invoice_id');
+    }
+
 
     
 }

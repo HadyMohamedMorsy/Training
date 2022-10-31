@@ -9,6 +9,17 @@ class invoice_attachment extends Model
 {
     use HasFactory;
 
-        protected $fillable = ['file_name' , 'invoice_number' , 'Created_by' , 'invoice_id'];
+        protected $fillable = ['file_name' , 'invoice_id'];
+        
+
+    public function section(){
+
+       return $this->belongsTo(sections::class);
+    }
+
+    public function invoice(){
+
+       return $this->belongsTo(Invoices::class);
+    }
 
 }

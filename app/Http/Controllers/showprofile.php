@@ -8,6 +8,6 @@ class showprofile extends Controller
 {
     public function index($show){
 
-        return view($show);
+        return view('theme.'.$show);
     }
 }

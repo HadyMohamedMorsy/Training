@@ -28,9 +28,8 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        if(Auth::check()){
             return view('sections.create');
-        }
+        
     }
 
     /**

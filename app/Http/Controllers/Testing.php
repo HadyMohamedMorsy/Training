@@ -10,13 +10,6 @@ class Testing extends Controller
 
     public function index(){
 
-        if (Auth::check()) {
-            // The user is logged in...
-            return view('Home.index');
-        }else{
-            return view('auth.login');
-        }
-
-        
+        return view('auth.login');
     }
 }
